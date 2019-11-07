@@ -6,7 +6,7 @@ using EventFlow.Commands;
 
 namespace poc.eventflow
 {
-    public class FinalizarProcesoCommandHandler : CommandHandler<ProcesoAggregate, ProcesoIdentity, IExecutionResult, FinalizarProcesoCommand>
+    public class FinalizarProcesoCommandHandler : CommandHandler<ProcesoAggregate, ProcesoId, IExecutionResult, FinalizarProcesoCommand>
     {
         public override Task<IExecutionResult> ExecuteCommandAsync(
             ProcesoAggregate aggregate,

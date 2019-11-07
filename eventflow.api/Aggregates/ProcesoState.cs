@@ -3,7 +3,7 @@ using EventFlow.Aggregates;
 
 namespace poc.eventflow
 {
-    public class ProcesoState : AggregateState<ProcesoAggregate, ProcesoIdentity, ProcesoState>,
+    public class ProcesoState : AggregateState<ProcesoAggregate, ProcesoId, ProcesoState>,
         IApply<ProcesamientoIniciadoEvent>,
         IApply<ProcesamientoFinalizadoEvent>
     {

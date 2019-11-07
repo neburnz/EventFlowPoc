@@ -5,7 +5,7 @@ using EventFlow.EventStores;
 namespace poc.eventflow
 {
     [EventVersion("ProcesamientoIniciado", 1)]
-    public class ProcesamientoIniciadoEvent : AggregateEvent<ProcesoAggregate, ProcesoIdentity>
+    public class ProcesamientoIniciadoEvent : AggregateEvent<ProcesoAggregate, ProcesoId>
     {
         public ProcesamientoIniciadoEvent(DateTime fechaCorte)
         {

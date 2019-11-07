@@ -19,7 +19,7 @@ namespace poc.eventflow.api
         [HttpPost("iniciar")]
         public async Task<StatusCodeResult> Iniciar([FromBody] ProcesoData data)
         {
-            var identity = ProcesoIdentity.New;
+            var identity = ProcesoId.New;
             
             var executionResult = await _commandBus.PublishAsync(
                 new IniciarProcesoCommand(identity, data.FechaCorte),
@@ -32,7 +32,7 @@ namespace poc.eventflow.api
         [HttpPost("finalizar")]
         public async Task<StatusCodeResult> Finalizar([FromBody] ProcesoData data)
         {
-            var identity = ProcesoIdentity.New;
+            var identity = ProcesoId.New;
             
             var executionResult = await _commandBus.PublishAsync(
                 new FinalizarProcesoCommand(identity),

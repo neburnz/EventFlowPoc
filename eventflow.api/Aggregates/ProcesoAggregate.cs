@@ -4,11 +4,10 @@ using EventFlow.Aggregates.ExecutionResults;
 
 namespace poc.eventflow
 {
-    public class ProcesoAggregate : 
-        AggregateRoot<ProcesoAggregate, ProcesoIdentity>
+    public class ProcesoAggregate : AggregateRoot<ProcesoAggregate, ProcesoId>
     {
         private readonly ProcesoState _state = new ProcesoState();
-        public ProcesoAggregate(ProcesoIdentity identity) : base(identity)
+        public ProcesoAggregate(ProcesoId id) : base(id)
         {
             Register(_state);
         }

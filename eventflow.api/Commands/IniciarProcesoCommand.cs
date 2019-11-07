@@ -4,9 +4,9 @@ using EventFlow.Commands;
 
 namespace poc.eventflow
 {
-    public class IniciarProcesoCommand : Command<ProcesoAggregate, ProcesoIdentity, IExecutionResult>
+    public class IniciarProcesoCommand : Command<ProcesoAggregate, ProcesoId, IExecutionResult>
     {
-        public IniciarProcesoCommand(ProcesoIdentity identity, DateTime fechaCorte) : base(identity)
+        public IniciarProcesoCommand(ProcesoId id, DateTime fechaCorte) : base(id)
         {
             FechaCorte = fechaCorte;
         }

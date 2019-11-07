@@ -4,9 +4,9 @@ using EventFlow.Commands;
 
 namespace poc.eventflow
 {
-    public class FinalizarProcesoCommand : Command<ProcesoAggregate, ProcesoIdentity, IExecutionResult>
+    public class FinalizarProcesoCommand : Command<ProcesoAggregate, ProcesoId, IExecutionResult>
     {
-        public FinalizarProcesoCommand(ProcesoIdentity identity) : base(identity)
+        public FinalizarProcesoCommand(ProcesoId id) : base(id)
         {
         }
     }
