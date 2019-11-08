@@ -18,6 +18,7 @@ using EventFlow.AspNetCore.Middlewares;
 using EventFlow.Autofac.Extensions;
 using EventFlow.EventStores.Files;
 using EventFlow.Extensions;
+using poc.eventflow;
 
 namespace eventflow.api
 {
@@ -50,6 +51,7 @@ namespace eventflow.api
                 .UseAutofacContainerBuilder(builder)
                 .AddAspNetCore(o => o.AddDefaultMetadataProviders())
                 .AddDefaults(typeof(Startup).Assembly)
+                .UseInMemoryReadStoreFor<ProcesoReadModel>()
                 .UseConsoleLog()
                 .CreateContainer();
 
