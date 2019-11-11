@@ -18,6 +18,8 @@ using EventFlow.AspNetCore.Middlewares;
 using EventFlow.Autofac.Extensions;
 using EventFlow.EventStores.Files;
 using EventFlow.Extensions;
+using EventFlow.EntityFramework;
+using EventFlow.EntityFramework.Extensions;
 using poc.eventflow;
 
 namespace eventflow.api
@@ -50,9 +52,21 @@ namespace eventflow.api
             AutofacContainer = EventFlowOptions.New
                 .UseAutofacContainerBuilder(builder)
                 .AddAspNetCore(o => o.AddDefaultMetadataProviders())
-                .AddDefaults(typeof(Startup).Assembly)
-                .UseInMemoryReadStoreFor<ProcesoReadModel>()
+                .AddEvents(typeof(ProcesamientoIniciadoEvent))
+                .AddEvents(typeof(ProcesamientoFinalizadoEvent))
+                .AddCommands(typeof(IniciarProcesoCommand))
+                .AddCommands(typeof(FinalizarProcesoCommand))
+                .AddCommandHandlers(typeof(IniciarProcesoCommandHandler))
+                .AddCommandHandlers(typeof(FinalizarProcesoCommandHandler))
+                .AddQueryHandler<GetProcesoByFechaCorteQueryHandler, GetProcesoByFechaCorteQuery, ProcesoReadModel>()
+                .ConfigureEntityFramework(EntityFrameworkConfiguration.New)
+                .AddDbContextProvider<ReadModelContext, ReadModelDbContextProvider>()
+                .UseEntityFrameworkReadModel<ProcesoReadModel, ReadModelContext>()
                 .UseConsoleLog()
+                .RegisterServices(register => 
+                {
+                    register.Register<IDbContextProvider<ReadModelContext>, ReadModelDbContextProvider>();
+                })
                 .CreateContainer();
 
             return new AutofacServiceProvider(AutofacContainer);

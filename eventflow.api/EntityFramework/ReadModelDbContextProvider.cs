@@ -11,7 +11,7 @@ namespace poc.eventflow
         public ReadModelDbContextProvider(IConfiguration configuration)
         {
             _options = new DbContextOptionsBuilder<ReadModelContext>()
-                .UseSqlServer(configuration["{connection string}"])
+                .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
                 .Options;
         }
         public ReadModelContext CreateContext()

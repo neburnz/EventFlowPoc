@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EventFlow;
+using EventFlow.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace poc.eventflow.api
@@ -11,9 +12,11 @@ namespace poc.eventflow.api
     public class ProcesoController : ControllerBase
     {
         private readonly ICommandBus _commandBus;
-        public ProcesoController(ICommandBus commandBus)
+        private readonly IQueryProcessor _queryProcessor;
+        public ProcesoController(ICommandBus commandBus, IQueryProcessor queryProcessor)
         {
             _commandBus = commandBus;
+            _queryProcessor = queryProcessor;
         }
         // POST api/proceso/iniciar
         [HttpPost("iniciar")]
@@ -32,7 +35,9 @@ namespace poc.eventflow.api
         [HttpPost("finalizar")]
         public async Task<StatusCodeResult> Finalizar([FromBody] ProcesoData data)
         {
-            var identity = ProcesoId.New;
+            var proceso = await _queryProcessor.ProcessAsync(new GetProcesoByFechaCorteQuery(data.FechaCorte), CancellationToken.None);
+
+            var identity = new ProcesoId(proceso.Id);
             
             var executionResult = await _commandBus.PublishAsync(
                 new FinalizarProcesoCommand(identity),
