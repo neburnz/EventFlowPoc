@@ -10,7 +10,7 @@ namespace poc.eventflow
         public ReadModelContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ReadModelContext>()
-                .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=ProcesoDatabaseTest;Integrated Security=true;");
+                .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=ProcesoReadModelTest;Integrated Security=true;");
             return new ReadModelContext(optionsBuilder.Options);
         }
     }

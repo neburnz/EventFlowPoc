@@ -60,7 +60,10 @@ namespace eventflow.api
                 .AddCommandHandlers(typeof(FinalizarProcesoCommandHandler))
                 .AddQueryHandler<GetProcesoByFechaCorteQueryHandler, GetProcesoByFechaCorteQuery, ProcesoReadModel>()
                 .ConfigureEntityFramework(EntityFrameworkConfiguration.New)
+                .AddDbContextProvider<EventStoreContext, EventStoreDbContextProvider>()
                 .AddDbContextProvider<ReadModelContext, ReadModelDbContextProvider>()
+                .UseEntityFrameworkEventStore<EventStoreContext>()
+                .UseEntityFrameworkSnapshotStore<EventStoreContext>()
                 .UseEntityFrameworkReadModel<ProcesoReadModel, ReadModelContext>()
                 .UseConsoleLog()
                 .RegisterServices(register => 

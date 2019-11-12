@@ -5,13 +5,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace poc.eventflow
 {
-    public class ReadModelDbContextProvider : IDbContextProvider<ReadModelContext>
+    public class ReadModelDbContextProvider : IDbContextProvider<ReadModelContext>, IDisposable
     {
         private readonly DbContextOptions<ReadModelContext> _options;
         public ReadModelDbContextProvider(IConfiguration configuration)
         {
             _options = new DbContextOptionsBuilder<ReadModelContext>()
-                .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+                .UseSqlServer(configuration.GetConnectionString("ReadModelConnection"))
                 .Options;
         }
         public ReadModelContext CreateContext()
@@ -19,6 +19,9 @@ namespace poc.eventflow
             var context = new ReadModelContext(_options);
             context.Database.Migrate();
             return context;
+        }
+        public void Dispose()
+        {
         }
     }
 }
