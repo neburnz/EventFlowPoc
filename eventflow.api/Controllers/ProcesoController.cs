@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventFlow;
 using EventFlow.Queries;
+using EventFlow.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace poc.eventflow.api
@@ -22,6 +23,9 @@ namespace poc.eventflow.api
         [HttpPost("iniciar")]
         public async Task<StatusCodeResult> Iniciar([FromBody] ProcesoData data)
         {
+            var specification = ExistsFechaCorteSpecification.Create(_queryProcessor).Not();
+            specification.ThrowDomainErrorIfNotSatisfied(data.FechaCorte);
+
             var identity = ProcesoId.New;
             
             var executionResult = await _commandBus.PublishAsync(

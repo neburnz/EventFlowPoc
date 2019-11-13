@@ -20,7 +20,7 @@ namespace poc.eventflow
             using(var context = _contextProvider.CreateContext())
             {
                 var readModel = await context.Procesos
-                    .SingleAsync(x => x.FechaCorte == query.FechaCorte, cancellationToken);
+                    .SingleOrDefaultAsync(x => x.FechaCorte == query.FechaCorte, cancellationToken);
                 return readModel;
             }
         }
