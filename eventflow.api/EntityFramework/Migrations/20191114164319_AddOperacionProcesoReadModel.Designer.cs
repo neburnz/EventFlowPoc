@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using poc.eventflow;
 
 namespace eventflow.api.EntityFramework.Migrations
 {
     [DbContext(typeof(ReadModelContext))]
-    partial class ReadModelContextModelSnapshot : ModelSnapshot
+    [Migration("20191114164319_AddOperacionProcesoReadModel")]
+    partial class AddOperacionProcesoReadModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
