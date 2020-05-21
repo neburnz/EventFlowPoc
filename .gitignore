@@ -346,3 +346,5 @@ ASALocalRun/
 **/.vscode/**/*
 
 # End of https://www.gitignore.io/api/visualstudio
+test/test_results*
+test/dashboard*
